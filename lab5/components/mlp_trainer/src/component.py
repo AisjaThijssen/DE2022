@@ -2,12 +2,13 @@ import argparse
 import json
 import logging
 import os
-import pandas as pd
 import sys
+from pathlib import Path
+
+import pandas as pd
 from google.cloud import storage
 from keras.layers import Dense
 from keras.models import Sequential
-from pathlib import Path
 
 
 def train_mlp(project_id, feature_path, model_repo, metrics_path):
@@ -69,3 +70,4 @@ def parse_command_line_arguments():
 
 if __name__ == '__main__':
     train_mlp(**parse_command_line_arguments())
+    # The *args and **kwargs is a common idiom to allow arbitrary number of arguments to functions
