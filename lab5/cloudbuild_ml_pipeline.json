@@ -5,7 +5,7 @@
        "args": [
            "cp",           
 		   "gs://data_aisja/parameters_lab5.json",
-           ".",
+           "."
         ]
    },
    {
