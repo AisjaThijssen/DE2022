@@ -19,7 +19,7 @@ from kfp.v2.components import importer_node
 from google_cloud_pipeline_components.types import artifact_types
 
 #The Google Cloud project that this pipeline runs in.
-PROJECT_ID = "de2022-362409"
+PROJECT_ID = "your project id"
 # The region that this pipeline runs in
 REGION = "us-central1"
 # Specify a Cloud Storage URI that your pipelines service account can access. The artifacts of your pipeline runs are stored within the pipeline root.
