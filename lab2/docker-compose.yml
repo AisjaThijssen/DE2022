@@ -1,0 +1,37 @@
+version: '3.8'
+
+volumes:
+  model-repo:
+    driver_opts:
+      type: none
+      device: /home/aisja_r_m_thijssen/model_repo
+      o: bind
+    
+services:
+  prediction-ui:
+    build:
+      context:
+    container_name: prediction-ui
+    user: root
+    ports:
+      - "5000:5000"
+    
+  prediction-api:
+    build:
+      context:
+    container_name: prediction-api
+    user: root
+    ports:
+      - "5001:5001"
+    volumes:
+      - model-repo:/home/jovyan/model_repo
+
+  training-api:
+    build:
+      context:
+    container_name: training-api
+    user: root
+    ports:
+      - "5002:5002"
+    volumes: 
+      - model-repo:/home/jovyan/model_repo
