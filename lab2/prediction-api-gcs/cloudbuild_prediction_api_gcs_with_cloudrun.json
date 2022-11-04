@@ -31,7 +31,7 @@
         "managed",
         "--allow-unauthenticated",
         "--update-env-vars",
-        "PROJECT_ID=$PROJECT_ID,MODEL_REPO=your_model_repo_bucket,MODEL_NAME=your_model_name",
+        "PROJECT_ID=$PROJECT_ID,MODEL_REPO=gs://model_repo_aisja,MODEL_NAME=lrmodel.pkl",
         "--no-cpu-throttling",
         "--memory",
         "4 Gi"
