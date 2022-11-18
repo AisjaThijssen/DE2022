@@ -1,51 +1,45 @@
 version: '3.8'
-
 services:
-  prediction-ui:
+  training_api:
     build:
-      context: ./prediction-ui
-    container_name: prediction-ui
-    user: root
-    depends_on:
-      - prediction-api
-    ports:
-      - "5000:5000"
-    networks:
-      - frontend
+      context: training-api
+    container_name: training_api
     environment:
-      - PREDICTOR-API=http://prediction_api:5000/diabetes_predictor
-
-  prediction-api:
-    build:
-      context: ./prediction-api
-    container_name: prediction-api
-    user: root
-    depends_on:
-      - training-api
-    ports:
-      - "5001:5000"
-    environment:
-      - MODEL_REPO=/src/usr/models2
-    volumes:
-      - "/home/aisja_r_m_thijssen/model-repo:/src/usr/models2"
-    networks:
-      - frontend
-      - backend
-
-  training-api:
-    build:
-      context: ./training-api
-    container_name: training-api
-    user: root
+      - MODEL_REPO=/usr/src/myapp/models
     ports:
       - "5002:5000"
+    networks:
+      - network-b
+    volumes:
+      - "/home/indika_kuma/models:/usr/src/myapp/models"
+  prediction_api:
+    build:
+      context: prediction-api
+    container_name: prediction_api
+    depends_on:
+      - training_api
+    ports:
+      - "5001:5000"
+    networks:
+      - network-a
+      - network-b
     environment:
       - MODEL_REPO=/usr/src/myapp/models
     volumes:
-      - "/home/aisja_r_m_thijssen/model-repo:/usr/src/myapp/modles"
+      - "/home/indika_kuma/models:/usr/src/myapp/models"
+  prediction_ui:
+    build:
+      context: prediction-ui
+    container_name: prediction_ui
+    depends_on:
+      - prediction_api
+    ports:
+      - "5000:5000"
     networks:
-      - backend
+      - network-a
+    environment:
+      - PREDICTOR_API=http://prediction_api:5000/diabetes_predictor
 
 networks:
-  frontend:
-  backend:
+  network-a:
+  network-b:
